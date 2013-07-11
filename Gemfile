@@ -21,6 +21,7 @@ group :development do
   gem 'bullet'
   gem 'capistrano'
   gem 'capistrano-deploytags'
+  gem 'auto_tagger'
   gem 'letter_opener'
   gem 'quiet_assets'
   gem 'sextant'

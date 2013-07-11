@@ -1,5 +1,5 @@
 require 'bundler/capistrano'
-require 'capistrano-deploytags'
+require 'auto_tagger/recipes'
 
 set :client, 'yomismo'
 set :application, 'miaplicacion'
@@ -7,6 +7,8 @@ set :repository, "https://github.com/zjuanma/test-git-tag"
 set :user, 'juanma'
 set :deploy_to, "/home/juanma/app"
 set :bundle_flags, '--deployment'
+
+set :auto_tagger_stages, [:int, :pre, :pro]
 
 ssh_options[:config] = false
 set :use_sudo, false
@@ -31,6 +33,7 @@ set :resque_interval, 0.1
 task :int do
 
   set :branch, 'integration'
+  set :auto_tagger_stage, :int
 
 
   role :app, 'localhost', :jobs => true
@@ -42,6 +45,7 @@ end
 task :pre do
 
   set :branch, 'preproduction'
+  set :auto_tagger_stage, :pre
 
   role :app, 'localhost', :jobs => true
   role :web, 'localhost'
@@ -60,6 +64,9 @@ before 'deploy:finalize_update' do
   deploy.symlink_config
   deploy.symlink_url_root
 end
+
+after  "deploy:prepare", "auto_tagger:create_ref"
+after  "deploy:prepare", "auto_tagger:print_latest_refs"
 
 after 'deploy',            'deploy:end'
 after 'deploy:migrations', 'deploy:end'
