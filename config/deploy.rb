@@ -70,7 +70,7 @@ after 'deploy:end', 'deploy:cleanup'
 
 
 set :whenever_command, "bundle exec whenever"
-require "whenever/capistrano"
+#require "whenever/capistrano"
 
 # Here comes the app config
 namespace :deploy do
