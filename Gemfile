@@ -20,7 +20,10 @@ group :development do
   gem 'binding_of_caller'
   gem 'bullet'
   gem 'capistrano'
+<<<<<<< HEAD
   gem 'capistrano-deploytags'
+=======
+>>>>>>> master
   gem 'auto_tagger'
   gem 'letter_opener'
   gem 'quiet_assets'
