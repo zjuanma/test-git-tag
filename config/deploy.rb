@@ -1,5 +1,5 @@
 require 'bundler/capistrano'
-require 'capistrano-deploytags'
+require 'auto_tagger/recipes'
 
 set :client, 'yomismo'
 set :application, 'miaplicacion'
