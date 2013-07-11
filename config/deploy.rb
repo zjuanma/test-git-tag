@@ -66,13 +66,14 @@ before 'deploy:finalize_update' do
 end
 
 after  "deploy:prepare", "auto_tagger:create_ref"
-after  "deploy:prepare", "auto_tagger:print_latest_refs"
 
 after 'deploy',            'deploy:end'
 after 'deploy:migrations', 'deploy:end'
 
 after "deploy:end", "resque:restart"
 after 'deploy:end', 'deploy:cleanup'
+after "deploy:end", "auto_tagger:create_ref"
+after "deploy:end", "auto_tagger:print_latest_refs"
 #after 'deploy:end', 'newrelic:notice_deployment'
 
 
